@@ -14,11 +14,11 @@ ${columns.map(col => `
 `).join('')}
 
 ${columns.map(col => `
-    ${col.dataType} get${jpql(col.columnName)}() {
+    public ${col.dataType} get${jpql(col.columnName)}() {
         return ${instance(col.columnName)};
     }
 
-    void set${jpql(col.columnName)}(${col.dataType} ${instance(col.columnName)}) {
+    public void set${jpql(col.columnName)}(${col.dataType} ${instance(col.columnName)}) {
         this.${instance(col.columnName)} = ${instance(col.columnName)};
     }
 `).join('')}
