@@ -1,0 +1,26 @@
+
+
+
+package ${USER_PACKAGE}.dtos.${DTO_TYPE};
+
+
+import java.io.Serializable;
+
+public class ${DTO_CLASS_NAME} implements Serializable {
+    private static final long serialVersionUID = ${VERSIONUID};
+
+${columns.map(col => `
+    ${col.dataType} ${instance(col.columnName)};
+`).join('')}
+
+${columns.map(col => `
+    ${col.dataType} get${jpql(col.columnName)}() {
+        return ${instance(col.columnName)};
+    }
+
+    void set${jpql(col.columnName)}(${col.dataType} ${instance(col.columnName)}) {
+        this.${instance(col.columnName)} = ${instance(col.columnName)};
+    }
+`).join('')}
+
+}

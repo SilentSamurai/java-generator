@@ -1,0 +1,37 @@
+
+package ${USER_PACKAGE}.services;
+
+import ${USER_PACKAGE}.entities.${ENTITY_CLASS};
+import ${USER_PACKAGE}.exceptions.${NOT_FOUND_EXCEPTION};
+import ${USER_PACKAGE}.repositories.${REPO_CLASS};
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+public class ${SERVICE_CLASS} {
+
+    @Autowired
+    ${REPO_CLASS} ${instance(REPO_CLASS)};
+
+    public boolean is${ENTITY_CLASS}Present(String id) {
+        ${ENTITY_CLASS} ${instance(ENTITY_CLASS)} = ${instance(REPO_CLASS)}.findById(email).orElse(null);
+        return ${instance(ENTITY_CLASS)} != null;
+    }
+
+    public List<${ENTITY_CLASS}> findAll() {
+        return ${instance(REPO_CLASS)}.findAll();
+    }
+
+    @Transactional
+    public long deleteById(String id) {
+        return ${instance(REPO_CLASS)}.deleteById(id);
+    }
+
+    @Transactional
+    public ${ENTITY_CLASS} save(${ENTITY_CLASS} ${instance(ENTITY_CLASS)}) {
+        return ${instance(REPO_CLASS)}.save(${instance(ENTITY_CLASS)});
+    }
+}

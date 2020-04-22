@@ -1,0 +1,21 @@
+package ${USER_PACKAGE}.repositories;
+
+import ${USER_PACKAGE}.entities.${ENTITY_CLASS};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Repository
+public interface ${REPO_CLASS} extends JpaRepository<${ENTITY_CLASS}, ${PRIMARY_KEY_CLASS}> {
+
+    ${columns.map(col => `
+        List<${ENTITY_CLASS}> findBy${jpql(col.columnName)}(${col.dataType} ${instance(col.columnName)});
+        ${ col.isUnique ?
+        `${ENTITY_CLASS} findBy${jpql(col.columnName)}(${col.dataType} ${instance(col.columnName)});`: ``}
+      `).join('')}
+
+}
