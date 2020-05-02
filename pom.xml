@@ -8,40 +8,104 @@
     <artifactId>spring-boot-generate</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-   <dependencies>
-       <dependency>
-           <groupId>com.hubspot.jinjava</groupId>
-           <artifactId>jinjava</artifactId>
-           <version>2.5.3</version>
-       </dependency>
+    <properties>
+        <schemacrawler.version>16.7.1</schemacrawler.version>
+    </properties>
 
-       <dependency>
-           <groupId>log4j</groupId>
+    <dependencies>
+        <dependency>
+            <groupId>com.hubspot.jinjava</groupId>
+            <artifactId>jinjava</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
            <artifactId>log4j</artifactId>
            <version>1.2.17</version>
        </dependency>
 
        <!-- https://mvnrepository.com/artifact/net.sourceforge.schemacrawler/schemacrawler -->
        <dependency>
-           <groupId>net.sourceforge.schemacrawler</groupId>
+           <groupId>us.fatehi</groupId>
            <artifactId>schemacrawler</artifactId>
-           <version>10.10.05</version>
+           <version>${schemacrawler.version}</version>
        </dependency>
-       <dependency>
-           <groupId>us.fatehi</groupId>
-           <artifactId>schemacrawler-tools</artifactId>
-           <version>${project.version}</version>
-           <type>test-jar</type>
-           <scope>test</scope>
-       </dependency>
-       <dependency>
-           <groupId>us.fatehi</groupId>
-           <artifactId>schemacrawler-api</artifactId>
-           <version>${project.version}</version>
-           <type>test-jar</type>
-           <scope>test</scope>
-       </dependency>
+        <!-- https://mvnrepository.com/artifact/us.fatehi/schemacrawler-tools -->
+        <dependency>
+            <groupId>us.fatehi</groupId>
+            <artifactId>schemacrawler-tools</artifactId>
+            <version>${schemacrawler.version}</version>
+        </dependency>
 
-   </dependencies>
+        <dependency>
+            <groupId>us.fatehi</groupId>
+            <artifactId>schemacrawler-api</artifactId>
+            <version>${schemacrawler.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <finalName>spring-boot-generate</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
 </project>
