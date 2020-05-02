@@ -50,10 +50,10 @@ public class JavaGeneratorBuilder {
     }
 
     private void validate() {
-        Assert.checkNull(this.schema);
-        Assert.checkNull(this.projectRoot);
-        Assert.checkNull(this.packageName);
-        Assert.checkNull(this.connection);
+        Assert.checkNonNull(this.schema);
+        Assert.checkNonNull(this.projectRoot);
+        Assert.checkNonNull(this.packageName);
+        Assert.checkNonNull(this.connection);
     }
 
 }

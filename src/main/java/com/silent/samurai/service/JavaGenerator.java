@@ -1,11 +1,14 @@
 package com.silent.samurai.service;
 
+import com.silent.samurai.generators.BuilderPatternGenerator;
 import com.silent.samurai.utils.DatabaseUtil;
 import org.apache.log4j.Logger;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JavaGenerator {
 
@@ -30,5 +33,10 @@ public class JavaGenerator {
 
     public void createRestAPI(String entityTableName) {
 
+    }
+
+    public void makeBuilderOf(Class<?> clazz) throws IOException {
+        List<String> generatedClasses = BuilderPatternGenerator.makeBuilderOf(clazz, projectRoot);
+        logger.info(generatedClasses);
     }
 }

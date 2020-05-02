@@ -1,6 +1,5 @@
 package com.silent.samurai.service;
 
-import com.silent.samurai.generators.BuilderPatternGenerator;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,21 +34,16 @@ public class JavaGeneratorTest {
 
         Package aPackage = this.getClass().getPackage();
 
-        logger.info(this.getClass().getResource("templates/controller.jt"));
-        logger.info(aPackage.getName());
-
-        BuilderPatternGenerator.makeBuilderOf(JavaGenerator.class, "/Users/i353584/OneDrive - SAP SE/Personal-projects/spring-boot-generate");
+        String projectRoot = "/Users/i353584/OneDrive - SAP SE/Personal-projects/spring-boot-generate";
 
         JavaGenerator generator = JavaGeneratorBuilder.builder()
                 .schema("public")
-                .projectRoot("path")
+                .projectRoot(projectRoot)
                 .packageName("")
                 .connection(getConnection())
                 .build();
 
 
-//        JavaGenerator.newGenerator(getConnection(), "public")
-//                .createRestAPI("category");
 
     }
 }

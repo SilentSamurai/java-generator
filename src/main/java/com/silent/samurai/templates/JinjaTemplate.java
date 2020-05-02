@@ -29,7 +29,7 @@ public class JinjaTemplate {
 
         String renderedTemplate = jinjava.render(template, context);
 
-        logger.info(renderedTemplate);
+//        logger.info(renderedTemplate);
         return renderedTemplate;
     }
 }

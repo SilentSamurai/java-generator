@@ -1,38 +1,38 @@
-package {{ package }};
+package {{ PACKAGE }};
 
 import com.sun.tools.javac.util.Assert;
 
-public class {{ class_name }} {
+public class {{ CLASS_NAME }} {
 
-{%- for field in fields %}
-    private {{ field.getType() }} {{ field.getName() }};
+{%- for FIELD in FIELDS %}
+    private {{ FIELD.getType() }} {{ FIELD.getName() }};
 {%- endfor %}
 
-    public static {{ class_name }} builder() {
-        return new {{ class_name }}();
+    public static {{ CLASS_NAME }} builder() {
+        return new {{ CLASS_NAME }}();
     }
 
-{% for field in fields %}
-    public {{ class_name }} {{ field.getName() }}({{ field.getType() }} {{ field.getName() }}) {
-        this.{{ field.getName() }} = {{ field.getName() }};
+{% for FIELD in FIELDS %}
+    public {{ CLASS_NAME }} {{ FIELD.getName() }}({{ FIELD.getType() }} {{ FIELD.getName() }}) {
+        this.{{ FIELD.getName() }} = {{ FIELD.getName() }};
         return this;
     }
 {%- endfor %}
 
 
     //Return the finally constructed object
-    public {{original_class}} build() {
+    public {{ORIGINAL_CLASS}} build() {
         validate();
-        return new {{original_class}}(
-        {%- for field in fields %}
-            this.{{ field.getName() }}{{ "," if not loop.last }}
+        return new {{ORIGINAL_CLASS}}(
+        {%- for FIELD in FIELDS %}
+            this.{{ FIELD.getName() }}{{ "," if not loop.last }}
         {%- endfor %}
         );
     }
 
     private void validate() {
-        {%- for field in fields %}
-        Assert.checkNull(this.{{ field.getName() }});
+        {%- for FIELD in FIELDS %}
+        Assert.checkNonNull(this.{{ FIELD.getName() }});
         {%- endfor %}
     }
 
