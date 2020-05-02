@@ -1,0 +1,39 @@
+package {{ PACKAGE }};
+
+import com.sun.tools.javac.util.Assert;
+
+public class {{ CLASS_NAME }} {
+
+{%- for FIELD in FIELDS %}
+    private {{ FIELD.getType() }} {{ FIELD.getName() }};
+{%- endfor %}
+
+    public static {{ CLASS_NAME }} builder() {
+        return new {{ CLASS_NAME }}();
+    }
+
+{% for FIELD in FIELDS %}
+    public {{ CLASS_NAME }} {{ FIELD.getName() }}({{ FIELD.getType() }} {{ FIELD.getName() }}) {
+        this.{{ FIELD.getName() }} = {{ FIELD.getName() }};
+        return this;
+    }
+{%- endfor %}
+
+
+    //Return the finally constructed object
+    public {{ORIGINAL_CLASS}} build() {
+        validate();
+        return new {{ORIGINAL_CLASS}}(
+        {%- for FIELD in FIELDS %}
+            this.{{ FIELD.getName() }}{{ "," if not loop.last }}
+        {%- endfor %}
+        );
+    }
+
+    private void validate() {
+        {%- for FIELD in FIELDS %}
+        Assert.checkNonNull(this.{{ FIELD.getName() }});
+        {%- endfor %}
+    }
+
+}
