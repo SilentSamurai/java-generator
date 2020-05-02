@@ -39,8 +39,13 @@ public class JavaGenerator {
         logger.info(generatedClasses);
     }
 
-    public void makeDto(Class<?> entity, String suffix, Boolean applyValidator) throws IOException {
-        List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, applyValidator, projectRoot);
+    public void makeDto(Class<?> entity, String suffix, String tableName) throws IOException {
+        List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, true, tableName, projectRoot);
+        logger.info(generatedClasses);
+    }
+
+    public void makeDto(Class<?> entity, String suffix) throws IOException {
+        List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, false, null, projectRoot);
         logger.info(generatedClasses);
     }
 }

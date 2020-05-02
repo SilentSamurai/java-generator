@@ -46,7 +46,7 @@ public class JavaGeneratorTest {
 //                .connection(getConnection())
                 .build();
 
-        generator.makeDto(FieldContext.class, "Dto", false);
+        generator.makeDto(FieldContext.class, "Dto");
 
 
     }

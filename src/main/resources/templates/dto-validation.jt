@@ -1,0 +1,22 @@
+package {{ PACKAGE }};
+
+
+
+public class {{ CLASS_NAME }} {
+
+    {%- for FIELD in FIELDS %}
+    {% "@NotNull" if not FIELD.getNullable() %}
+    private {{ FIELD.getType() }} {{ FIELD.getName() }};
+    {%- endfor %}
+
+    {% for FIELD in FIELDS -%}
+    public {{ FIELD.getType() }} get{{ FIELD.getName() | capitalize }}() {
+        return {{ FIELD.getName() }};
+    }
+
+    public void set{{ FIELD.getName() | capitalize }}({{ FIELD.getType() }} {{ FIELD.getName() }}) {
+        this.{{ FIELD.getName() }} = {{ FIELD.getName() }};
+    }
+    {% endfor %}
+
+}
