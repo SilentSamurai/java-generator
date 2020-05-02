@@ -22,13 +22,16 @@ public class DatabaseUtil {
     private Catalog catalog;
 
     private static SchemaCrawlerOptions getOptions(String schemaName) {
-        final SchemaCrawlerOptionsBuilder optionsBuilder =
-                SchemaCrawlerOptionsBuilder.builder()
-                        // Set what details are required in the schema - this affects the
-                        // time taken to crawl the schema
-                        .withSchemaInfoLevel(SchemaInfoLevelBuilder.standard())
-                        .includeSchemas(new RegularExpressionInclusionRule(schemaName));
-        //                        .includeTables(tableFullName -> !tableFullName.contains("ΒΙΒΛΊΑ"));
+        final SchemaCrawlerOptionsBuilder optionsBuilder = SchemaCrawlerOptionsBuilder.builder();
+        optionsBuilder.withSchemaInfoLevel(SchemaInfoLevelBuilder.standard());
+        if (schemaName != null && !schemaName.isEmpty()) {
+            optionsBuilder.includeSchemas(new RegularExpressionInclusionRule(schemaName));
+        }
+        // Set what details are required in the schema - this affects the
+        // time taken to crawl the schema
+
+
+        //                        .includeTables(tableFullName -> !tableFullName.contains("books"));
         return optionsBuilder.toOptions();
     }
 

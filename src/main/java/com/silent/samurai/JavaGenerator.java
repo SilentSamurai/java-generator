@@ -1,6 +1,7 @@
-package com.silent.samurai.service;
+package com.silent.samurai;
 
 import com.silent.samurai.generators.BuilderPatternGenerator;
+import com.silent.samurai.generators.GenerateDtoClass;
 import com.silent.samurai.utils.DatabaseUtil;
 import org.apache.log4j.Logger;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
@@ -19,16 +20,14 @@ public class JavaGenerator {
     private final Connection connection;
     private final String schema;
 
-    public JavaGenerator(String projectRoot, String packageName, Connection connection, String schema) {
+    public JavaGenerator(String projectRoot, String packageName, Connection connection, String schema) throws SQLException, SchemaCrawlerException {
         this.projectRoot = projectRoot;
         this.packageName = packageName;
         this.connection = connection;
         this.schema = schema;
-    }
-
-    JavaGenerator buildCatalog() throws SQLException, SchemaCrawlerException {
-        DatabaseUtil.buildCatalog(connection, schema);
-        return this;
+        if (connection != null) {
+            DatabaseUtil.buildCatalog(connection, schema);
+        }
     }
 
     public void createRestAPI(String entityTableName) {
@@ -37,6 +36,11 @@ public class JavaGenerator {
 
     public void makeBuilderOf(Class<?> clazz) throws IOException {
         List<String> generatedClasses = BuilderPatternGenerator.makeBuilderOf(clazz, projectRoot);
+        logger.info(generatedClasses);
+    }
+
+    public void makeDto(Class<?> entity, String suffix, Boolean applyValidator) throws IOException {
+        List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, applyValidator, projectRoot);
         logger.info(generatedClasses);
     }
 }

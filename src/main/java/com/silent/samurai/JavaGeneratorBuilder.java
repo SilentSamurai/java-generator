@@ -1,6 +1,5 @@
-package com.silent.samurai.service;
+package com.silent.samurai;
 
-import com.sun.tools.javac.util.Assert;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
 
 import java.sql.Connection;
@@ -46,14 +45,12 @@ public class JavaGeneratorBuilder {
                 this.packageName,
                 this.connection,
                 this.schema
-        ).buildCatalog();
+        );
     }
 
     private void validate() {
-        Assert.checkNonNull(this.schema);
-        Assert.checkNonNull(this.projectRoot);
-        Assert.checkNonNull(this.packageName);
-        Assert.checkNonNull(this.connection);
+        assert this.projectRoot != null;
+        assert this.packageName != null;
     }
 
 }

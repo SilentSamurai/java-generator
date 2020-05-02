@@ -1,5 +1,8 @@
 package com.silent.samurai.service;
 
+import com.silent.samurai.JavaGenerator;
+import com.silent.samurai.JavaGeneratorBuilder;
+import com.silent.samurai.helper.FieldContext;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,12 +40,13 @@ public class JavaGeneratorTest {
         String projectRoot = "/Users/i353584/OneDrive - SAP SE/Personal-projects/spring-boot-generate";
 
         JavaGenerator generator = JavaGeneratorBuilder.builder()
-                .schema("public")
+//                .schema("public")
                 .projectRoot(projectRoot)
                 .packageName("")
-                .connection(getConnection())
+//                .connection(getConnection())
                 .build();
 
+        generator.makeDto(FieldContext.class, "Dto", false);
 
 
     }
