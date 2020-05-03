@@ -42,7 +42,7 @@ public class JavaGeneratorTest {
 //                .schema("public")
                 .projectRoot(projectRoot)
                 .packageName(rootPackage)
-                .connection(getConnection())
+//                .connection(getConnection())
                 .build();
 
 //        generator.makeDtoWithValidation(FieldContext.class, "Dto", "users");
