@@ -35,14 +35,14 @@ public class JavaGeneratorTest {
     @Test
     public void mainTest() throws SQLException, SchemaCrawlerException, IOException {
 
-        Package aPackage = this.getClass().getPackage();
+        String rootPackage = this.getClass().getPackage().getName();
 
         String projectRoot = "/Users/i353584/OneDrive - SAP SE/Personal-projects/spring-boot-generate";
 
         JavaGenerator generator = JavaGeneratorBuilder.builder()
 //                .schema("public")
                 .projectRoot(projectRoot)
-                .packageName("")
+                .packageName(rootPackage)
 //                .connection(getConnection())
                 .build();
 

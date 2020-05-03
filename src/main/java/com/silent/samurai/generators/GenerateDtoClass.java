@@ -25,7 +25,7 @@ public class GenerateDtoClass {
     public static List<String> make(Class<?> entity, String suffix, Boolean applyValidation, String tableName, String projectRoot) throws IOException {
         ContextMap context = ContextMap.newContext();
         String className = entity.getSimpleName() + WordUtils.capitalize(suffix);
-        String packageName = entity.getPackage().getName();
+        String packageName = entity.getPackage().getName() + ".dtos";
 
         Set<Field> fields = FieldUtil.getFields(entity);
 
