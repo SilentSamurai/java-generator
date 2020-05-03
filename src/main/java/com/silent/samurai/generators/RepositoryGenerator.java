@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RepositoryGenerator {
 
@@ -24,16 +25,18 @@ public class RepositoryGenerator {
         ContextMap context = ContextMap.newContext();
         String entityName = entity.getSimpleName();
         String basePackageName = generator.getPackageName();
-        String packageName = basePackageName + ".repository";
+        String packageName = basePackageName + ".repositories";
 
         String className = entity.getSimpleName() + "Repository";
 
         String idClassName = idClass.getSimpleName();
 
         Set<Field> fields = FieldUtil.getFields(entity);
+        fields = fields.stream().filter(item -> !item.getName().equals("id")).collect(Collectors.toSet());
+
         Table table = DatabaseUtil.getInstance().getTable(tableName);
         List<Column> columns = table.getColumns();
-        Set<FieldContext> fieldContexts = FieldUtil.updateFieldsWithColumns(fields, columns);
+        Set<FieldContext> fieldContexts = FieldUtil.updateFieldsWithColumns(fields, columns, false);
 
 
         context.put("BASE_PACKAGE", basePackageName);

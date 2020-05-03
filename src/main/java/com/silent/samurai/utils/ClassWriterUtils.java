@@ -10,7 +10,7 @@ public class ClassWriterUtils {
 
     public static String writeClass(String className, String clazz, String rootPath, String packageName) throws IOException {
         String packagePath = CommonUtil.package2path(packageName);
-        String absolutePath = rootPath + "/src/main/java/" + packagePath + "/" + className + ".java";
+        String absolutePath = rootPath + "/src/main/java/" + packagePath + "/" + className + ".generated.java";
         File file = new File(absolutePath);
         FileUtils.writeStringToFile(file, clazz, Charsets.UTF_8);
         return absolutePath;

@@ -17,7 +17,7 @@ public class FieldUtil {
 
     static final Logger logger = Logger.getLogger(FieldUtil.class);
 
-    public static Set<FieldContext> updateFieldsWithColumns(Set<Field> fields, List<Column> columns) {
+    public static Set<FieldContext> updateFieldsWithColumns(Set<Field> fields, List<Column> columns, Boolean addExtraFields) {
         ContextMap contextMap = ContextMap.newContext();
 
         columns.forEach(item -> {
@@ -29,12 +29,18 @@ public class FieldUtil {
 
         for (Field field : fields) {
             Column column = (Column) contextMap.get(field.getName());
+            if (!addExtraFields && column == null)
+                continue;
             FieldContext fieldContext = FieldContext.fromField(field);
             if (column != null)
                 fieldContext.update(column);
             fieldContexts.add(fieldContext);
         }
         return fieldContexts;
+    }
+
+    public static Set<FieldContext> updateFieldsWithColumns(Set<Field> fields, List<Column> columns) {
+        return updateFieldsWithColumns(fields, columns, true);
     }
 
     public static Set<Field> getFields(Class<?> clazz) {
