@@ -34,11 +34,63 @@ public class GeneratorTest {
 #### Generate Dto Objects
 
 ```java
-generator.makeDto(User.class, "Dto");
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = TestConfig.class)
+public class GeneratorTest {
+
+    @Autowired
+    DataSource dataSource;
+
+    @Test
+    @Ignore
+    public void test() throws Exception {
+
+        String rootPackage = this.getClass().getPackage().getName();
+
+        String projectRoot = "/your/project/root";
+
+        JavaGenerator javaGenerator = JavaGeneratorBuilder.builder()
+                .connection(dataSource.getConnection())
+                .packageName(rootPackage)
+                .projectRoot(projectRoot)
+                .build();
+
+        javaGenerator.makeDto(User.class, "Dto");
+    }
+}
+
 ```
 
 #### Generate Dto with validation
 
 ```java
-generator.makeDtoWithValidation(User.class, "Dto", "users");
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = TestConfig.class)
+public class GeneratorTest {
+
+    @Autowired
+    DataSource dataSource;
+
+    @Test
+    @Ignore
+    public void test() throws Exception {
+
+        String rootPackage = this.getClass().getPackage().getName();
+
+        String projectRoot = "/your/project/root";
+
+        JavaGenerator javaGenerator = JavaGeneratorBuilder.builder()
+                .connection(dataSource.getConnection())
+                .packageName(rootPackage)
+                .projectRoot(projectRoot)
+                .build();
+
+        javaGenerator.makeDtoWithValidation(User.class, "Dto", "users");
+    }
+}
+
+
 ```
