@@ -19,7 +19,7 @@ public class GeneratorTest {
 
         String rootPackage = this.getClass().getPackage().getName();
 
-        String projectRoot = "/Users/i353584/Documents/SCH-Portal/Athena";
+        String projectRoot = "/your/project/root";
 
         JavaGenerator javaGenerator = JavaGeneratorBuilder.builder()
                 .connection(dataSource.getConnection())
