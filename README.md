@@ -32,3 +32,8 @@ Generator Controller &amp; Service &amp; Entities using Postgres Table
 `
 
 #### Generate Dto Objects
+
+`java
+    
+    generator.makeDto(User.class, "Dto");
+`
