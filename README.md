@@ -36,3 +36,9 @@ public class GeneratorTest {
 ```java
 generator.makeDto(User.class, "Dto");
 ```
+
+#### Generate Dto with validation
+
+```java
+generator.makeDtoWithValidation(User.class, "Dto", "users");
+```
