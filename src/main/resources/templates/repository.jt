@@ -1,0 +1,21 @@
+package {{ BASE_PACKAGE }}.repository;
+
+import {{ BASE_PACKAGE }}.{{ ENTITY_CLASS_NAME }};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface {{ CLASS_NAME }} extends JpaRepository<{{ENTITY_CLASS_NAME}}, {{ID_CLASS}}> {
+
+{%- for FIELD in FIELDS %}
+    {% if FIELD.isUnique() %}
+    Optional<{{ENTITY_CLASS_NAME}}> findBy{{ FIELD.getName() | capitalize }}({{FIELD.getType()}} {{ FIELD.getName() }});
+
+    Boolean existsBy{{ FIELD.getName() | capitalize }}({{FIELD.getType()}} {{ FIELD.getName() }});
+    {% endif %}
+{%- endfor %}
+
+}

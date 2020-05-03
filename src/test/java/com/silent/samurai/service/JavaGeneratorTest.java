@@ -2,7 +2,6 @@ package com.silent.samurai.service;
 
 import com.silent.samurai.JavaGenerator;
 import com.silent.samurai.JavaGeneratorBuilder;
-import com.silent.samurai.helper.FieldContext;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +46,7 @@ public class JavaGeneratorTest {
                 .build();
 
 //        generator.makeDtoWithValidation(FieldContext.class, "Dto", "users");
-        generator.makeHttpClient(FieldContext.class, "/apis");
+//        generator.makeRepository(FieldContext.class, String.class,"users");
 
 
     }

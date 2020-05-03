@@ -1,6 +1,5 @@
 package com.silent.samurai.generators;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.google.common.base.CaseFormat;
 import com.silent.samurai.JavaGenerator;
 import com.silent.samurai.helper.ContextMap;
@@ -9,12 +8,8 @@ import com.silent.samurai.helper.FileList;
 import com.silent.samurai.templates.JinjaTemplate;
 import com.silent.samurai.utils.ClassWriterUtils;
 import com.silent.samurai.utils.FieldUtil;
-import org.apache.commons.text.WordUtils;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 public class HttpClientGenerator {

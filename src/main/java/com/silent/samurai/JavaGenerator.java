@@ -3,6 +3,7 @@ package com.silent.samurai;
 import com.silent.samurai.generators.BuilderPatternGenerator;
 import com.silent.samurai.generators.GenerateDtoClass;
 import com.silent.samurai.generators.HttpClientGenerator;
+import com.silent.samurai.generators.RepositoryGenerator;
 import com.silent.samurai.utils.DatabaseUtil;
 import org.apache.log4j.Logger;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
@@ -59,6 +60,11 @@ public class JavaGenerator {
 
     public void makeHttpClient(Class<?> entity, String pathFromRoot) throws IOException {
         List<String> generatedClasses = HttpClientGenerator.make(entity, pathFromRoot, this);
+        logger.info(generatedClasses);
+    }
+
+    public void makeRepository(Class<?> entity, Class<?> idClass, String tableName) throws IOException {
+        List<String> generatedClasses = RepositoryGenerator.make(entity, idClass, tableName, this);
         logger.info(generatedClasses);
     }
 
