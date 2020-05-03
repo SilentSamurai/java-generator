@@ -16,4 +16,11 @@ public class ClassWriterUtils {
         return absolutePath;
     }
 
+    public static String writeFile(String filename, String fileData, String rootPath) throws IOException {
+        String absolutePath = rootPath + filename;
+        File file = new File(absolutePath);
+        FileUtils.writeStringToFile(file, fileData, Charsets.UTF_8);
+        return absolutePath;
+    }
+
 }

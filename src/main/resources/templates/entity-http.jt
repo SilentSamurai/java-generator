@@ -1,0 +1,63 @@
+
+### GET ALL {{ENTITY_NAME}}
+
+GET http://localhost:8080/{{ENTITY_API}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {% raw %}{{ bearer_token }}{% endraw %}
+
+{}
+
+### GET One {{ENTITY_NAME}} By Id
+
+GET http://localhost:8080/{{ENTITY_API}}/{% raw %}{{ {% endraw %} {{ ENTITY_ID_VAR | capitalize}} {% raw %} }}{% endraw %}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {% raw %}{{ bearer_token }}{% endraw %}
+
+{}
+
+### CREATE  {{ENTITY_NAME}}
+
+POST http://localhost:8080/{{ENTITY_API}}/
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {% raw %}{{ bearer_token }}{% endraw %}
+
+{
+
+{%- for FIELD in FIELDS %}
+  "{{ FIELD.getName() }}" : "" {{ "," if not loop.last }}
+{%- endfor %}
+
+}
+
+> {{ "{%" }}
+
+if(response.body.results.id) {
+    client.global.set("{{ENTITY_NAME | capitalize}}_ID", response.body.results.id);
+}
+
+{{ "%}"  }}
+
+### DELETE {{ENTITY_NAME}}
+
+DELETE http://localhost:8080/{{ENTITY_API}}/{% raw %}{{  {% endraw %} {{ ENTITY_ID_VAR | capitalize}} {% raw %} }}{% endraw %}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {% raw %}{{ bearer_token }}{% endraw %}
+
+{}
+
+### UPDATE {{ENTITY_NAME}}
+
+PUT http://localhost:8080/{{ENTITY_API}}/{% raw %}{{  {% endraw %} {{ ENTITY_ID_VAR | capitalize}} {% raw %} }}{% endraw %}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {% raw %}{{ bearer_token }}{% endraw %}
+
+{
+{%- for FIELD in FIELDS %}
+  "{{ FIELD.getName() }}" : "" {{ "," if not loop.last }}
+{%- endfor %}
+}

@@ -2,6 +2,7 @@ package com.silent.samurai;
 
 import com.silent.samurai.generators.BuilderPatternGenerator;
 import com.silent.samurai.generators.GenerateDtoClass;
+import com.silent.samurai.generators.HttpClientGenerator;
 import com.silent.samurai.utils.DatabaseUtil;
 import org.apache.log4j.Logger;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
@@ -53,5 +54,28 @@ public class JavaGenerator {
     public void makeDto(Class<?> entity, String suffix) throws IOException {
         List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, false, null, projectRoot);
         logger.info(generatedClasses);
+    }
+
+
+    public void makeHttpClient(Class<?> entity, String pathFromRoot) throws IOException {
+        List<String> generatedClasses = HttpClientGenerator.make(entity, pathFromRoot, this);
+        logger.info(generatedClasses);
+    }
+
+
+    public String getProjectRoot() {
+        return projectRoot;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public String getSchema() {
+        return schema;
     }
 }

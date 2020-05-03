@@ -2,6 +2,7 @@ package com.silent.samurai.service;
 
 import com.silent.samurai.JavaGenerator;
 import com.silent.samurai.JavaGeneratorBuilder;
+import com.silent.samurai.helper.FieldContext;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class JavaGeneratorTest {
     @Test
     public void mainTest() throws SQLException, SchemaCrawlerException, IOException {
 
-        String rootPackage = this.getClass().getPackage().getName();
+        String rootPackage = "com.silent.samurai";
 
         String projectRoot = "/Users/i353584/OneDrive - SAP SE/Personal-projects/spring-boot-generate";
 
@@ -46,6 +47,7 @@ public class JavaGeneratorTest {
                 .build();
 
 //        generator.makeDtoWithValidation(FieldContext.class, "Dto", "users");
+        generator.makeHttpClient(FieldContext.class, "/apis");
 
 
     }
