@@ -64,6 +64,7 @@ public class JavaGenerator {
     }
 
     public void makeRepository(Class<?> entity, Class<?> idClass, String tableName) throws IOException {
+        this.needDB();
         List<String> generatedClasses = RepositoryGenerator.make(entity, idClass, tableName, this);
         logger.info(generatedClasses);
     }
