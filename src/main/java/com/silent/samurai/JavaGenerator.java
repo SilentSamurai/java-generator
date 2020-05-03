@@ -8,7 +8,6 @@ import schemacrawler.schemacrawler.SchemaCrawlerException;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class JavaGenerator {
@@ -20,13 +19,19 @@ public class JavaGenerator {
     private final Connection connection;
     private final String schema;
 
-    public JavaGenerator(String projectRoot, String packageName, Connection connection, String schema) throws SQLException, SchemaCrawlerException {
+    public JavaGenerator(String projectRoot, String packageName, Connection connection, String schema) throws SchemaCrawlerException {
         this.projectRoot = projectRoot;
         this.packageName = packageName;
         this.connection = connection;
         this.schema = schema;
         if (connection != null) {
             DatabaseUtil.buildCatalog(connection, schema);
+        }
+    }
+
+    private void needDB() throws RuntimeException {
+        if (this.connection == null) {
+            throw new RuntimeException("Database Connection is Required for this generation");
         }
     }
 
@@ -40,6 +45,7 @@ public class JavaGenerator {
     }
 
     public void makeDtoWithValidation(Class<?> entity, String suffix, String tableName) throws IOException {
+        this.needDB();
         List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, true, tableName, projectRoot);
         logger.info(generatedClasses);
     }

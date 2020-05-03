@@ -19,13 +19,13 @@ import java.util.Set;
 public class GenerateDtoClass {
 
     static String template = "dto.jt";
-    static String templateValidation = "dto.jt";
+    static String templateValidation = "dto-validation.jt";
 
 
     public static List<String> make(Class<?> entity, String suffix, Boolean applyValidation, String tableName, String projectRoot) throws IOException {
         ContextMap context = ContextMap.newContext();
         String className = entity.getSimpleName() + WordUtils.capitalize(suffix);
-        String packageName = entity.getPackage().getName() + ".dtos";
+        String packageName = entity.getPackage().getName();
 
         Set<Field> fields = FieldUtil.getFields(entity);
 

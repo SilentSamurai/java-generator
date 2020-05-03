@@ -10,11 +10,11 @@ public class FieldContext {
     public String name;
     public String type;
     public String modifier;
-    public Boolean isUnique;
-    public Boolean isNullable;
-    public Boolean isIndexed;
-    public Boolean isGenerated;
-    public Boolean isAutoInc;
+    public Boolean _isUnique = false;
+    public Boolean _isNullable = true;
+    public Boolean _isIndexed = false;
+    public Boolean _isGenerated = false;
+    public Boolean _isAutoInc = false;
 
 
     public static FieldContext fromField(Field field) {
@@ -26,11 +26,11 @@ public class FieldContext {
     }
 
     public void update(Column column) {
-        this.isNullable = column.isNullable();
-        this.isUnique = column.isPartOfUniqueIndex();
-        this.isIndexed = column.isPartOfIndex();
-        this.isGenerated = column.isGenerated();
-        this.isAutoInc = column.isAutoIncremented();
+        this._isNullable = column.isNullable();
+        this._isUnique = column.isPartOfUniqueIndex();
+        this._isIndexed = column.isPartOfIndex();
+        this._isGenerated = column.isGenerated();
+        this._isAutoInc = column.isAutoIncremented();
     }
 
 
@@ -46,23 +46,23 @@ public class FieldContext {
         return modifier;
     }
 
-    public Boolean getUnique() {
-        return isUnique;
+    public Boolean isUnique() {
+        return _isUnique;
     }
 
-    public Boolean getNullable() {
-        return isNullable;
+    public Boolean isNullable() {
+        return _isNullable;
     }
 
-    public Boolean getIndexed() {
-        return isIndexed;
+    public Boolean isIndexed() {
+        return _isIndexed;
     }
 
-    public Boolean getGenerated() {
-        return isGenerated;
+    public Boolean isGenerated() {
+        return _isGenerated;
     }
 
     public Boolean getAutoInc() {
-        return isAutoInc;
+        return _isAutoInc;
     }
 }

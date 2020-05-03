@@ -1,9 +1,9 @@
 package com.silent.samurai.utils;
 
+import com.silent.samurai.exceptions.TableNotFoundException;
 import org.apache.log4j.Logger;
 import schemacrawler.inclusionrule.RegularExpressionInclusionRule;
 import schemacrawler.schema.Catalog;
-import schemacrawler.schema.Schema;
 import schemacrawler.schema.Table;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
@@ -39,7 +39,7 @@ public class DatabaseUtil {
         buildCatalog(dataSource.getConnection(), schemaName);
     }
 
-    public static void buildCatalog(Connection connection, String schemaName) throws SQLException, SchemaCrawlerException {
+    public static void buildCatalog(Connection connection, String schemaName) throws SchemaCrawlerException {
         if (instance == null) {
             instance = new DatabaseUtil();
             instance.catalog = SchemaCrawlerUtility.getCatalog(connection, getOptions(schemaName));
@@ -51,9 +51,8 @@ public class DatabaseUtil {
     }
 
     public Table getTable(String tableName) {
-        Schema schema = catalog.getSchemas().stream().findAny().orElse(null);
-        return catalog.getTables(schema).parallelStream().filter(tbl -> tbl.getName().equals(tableName))
-                .findAny().orElse(null);
+        return catalog.getTables().parallelStream().filter(tbl -> tbl.getName().equalsIgnoreCase(tableName))
+                .findAny().orElseThrow(TableNotFoundException::new);
     }
 
 }

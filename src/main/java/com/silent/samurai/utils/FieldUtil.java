@@ -20,15 +20,18 @@ public class FieldUtil {
     public static Set<FieldContext> updateFieldsWithColumns(Set<Field> fields, List<Column> columns) {
         ContextMap contextMap = ContextMap.newContext();
 
-        fields.forEach(item -> contextMap.put(item.getName(), item));
+        columns.forEach(item -> {
+            String fieldName = CaseUtils.toCamelCase(item.getName(), false, '_');
+            contextMap.put(fieldName, item);
+        });
 
         Set<FieldContext> fieldContexts = new HashSet<>();
 
-        for (Column column : columns) {
-            String fieldName = CaseUtils.toCamelCase(column.getName(), false, '_');
-            Field field = (Field) contextMap.get(fieldName);
+        for (Field field : fields) {
+            Column column = (Column) contextMap.get(field.getName());
             FieldContext fieldContext = FieldContext.fromField(field);
-            fieldContext.update(column);
+            if (column != null)
+                fieldContext.update(column);
             fieldContexts.add(fieldContext);
         }
         return fieldContexts;
