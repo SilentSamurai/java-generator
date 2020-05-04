@@ -7,7 +7,8 @@ import {{BASE_PACKAGE}}.entities.{{ ENTITY_CLASS_NAME }};
 import {{BASE_PACKAGE}}.services.{{ENTITY_CLASS_NAME}}Service;
 import {{BASE_PACKAGE}}.utils.CommonUtil;
 import {{BASE_PACKAGE}}.utils.Constants;
-import {{BASE_PACKAGE}}.exceptions.{{ ENTITY_CLASS_NAME }}NotFoundException;
+import {{BASE_PACKAGE}}.interfaces.CreateValidation;
+import {{BASE_PACKAGE}}.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -80,7 +81,7 @@ public class {{ CLASS_NAME }} {
     @PutMapping("/{{API_FRAGMENT}}/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @Valid @RequestBody {{REQUEST_CLASS}} {{REQUEST_CLASS | instance}}) {
         try {
-            {{ENTITY_CLASS_NAME}} {{ENTITY_INSTANCE}} = {{ENTITY_INSTANCE}}Service.update(id, collegeRequest);
+            {{ENTITY_CLASS_NAME}} {{ENTITY_INSTANCE}} = {{ENTITY_INSTANCE}}Service.update(id, {{REQUEST_CLASS | instance}});
             {{RESPONSE_CLASS}} {{RESPONSE_CLASS | instance}} = CommonUtil.mapModel({{ENTITY_INSTANCE}}, {{RESPONSE_CLASS}}.class);
             return ResponseBuilder.ok({{RESPONSE_CLASS | instance}});
         } catch (RuntimeException e) {
