@@ -1,9 +1,6 @@
 package com.silent.samurai;
 
-import com.silent.samurai.generators.BuilderPatternGenerator;
-import com.silent.samurai.generators.GenerateDtoClass;
-import com.silent.samurai.generators.HttpClientGenerator;
-import com.silent.samurai.generators.RepositoryGenerator;
+import com.silent.samurai.generators.*;
 import com.silent.samurai.utils.DatabaseUtil;
 import org.apache.log4j.Logger;
 import schemacrawler.schemacrawler.SchemaCrawlerException;
@@ -48,12 +45,12 @@ public class JavaGenerator {
 
     public void makeDtoWithValidation(Class<?> entity, String suffix, String tableName) throws IOException {
         this.needDB();
-        List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, true, tableName, projectRoot);
+        List<String> generatedClasses = DtoClassGenerator.make(entity, suffix, true, tableName, projectRoot);
         logger.info(generatedClasses);
     }
 
     public void makeDto(Class<?> entity, String suffix) throws IOException {
-        List<String> generatedClasses = GenerateDtoClass.make(entity, suffix, false, null, projectRoot);
+        List<String> generatedClasses = DtoClassGenerator.make(entity, suffix, false, null, projectRoot);
         logger.info(generatedClasses);
     }
 
@@ -66,6 +63,11 @@ public class JavaGenerator {
     public void makeRepository(Class<?> entity, Class<?> idClass, String tableName) throws IOException {
         this.needDB();
         List<String> generatedClasses = RepositoryGenerator.make(entity, idClass, tableName, this);
+        logger.info(generatedClasses);
+    }
+
+    public void makeController(Class<?> entity) throws IOException {
+        List<String> generatedClasses = ControllerGenerator.make(entity, this);
         logger.info(generatedClasses);
     }
 

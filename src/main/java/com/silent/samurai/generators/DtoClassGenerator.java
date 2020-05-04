@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class GenerateDtoClass {
+public class DtoClassGenerator {
 
     static String template = "dto.jt";
     static String templateValidation = "dto-validation.jt";

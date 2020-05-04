@@ -47,6 +47,7 @@ public class JavaGeneratorTest {
 
 //        generator.makeDtoWithValidation(FieldContext.class, "Dto", "users");
 //        generator.makeRepository(FieldContext.class, String.class,"users");
+//        generator.makeController(FieldContext.class);
 
 
     }

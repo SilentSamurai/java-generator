@@ -1,0 +1,94 @@
+package {{BASE_PACKAGE}}.controllers;
+
+import {{BASE_PACKAGE}}.dtos.ResponseBuilder;
+import {{BASE_PACKAGE}}.dtos.request.{{REQUEST_CLASS}};
+import {{BASE_PACKAGE}}.dtos.response.{{RESPONSE_CLASS}};
+import {{BASE_PACKAGE}}.entities.{{ ENTITY_CLASS_NAME }};
+import {{BASE_PACKAGE}}.services.{{ENTITY_CLASS_NAME}}Service;
+import {{BASE_PACKAGE}}.utils.CommonUtil;
+import {{BASE_PACKAGE}}.utils.Constants;
+import {{BASE_PACKAGE}}.exceptions.{{ ENTITY_CLASS_NAME }}NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@RestController
+public class {{ CLASS_NAME }} {
+
+    @Autowired
+    private {{ENTITY_CLASS_NAME}}Service {{ENTITY_INSTANCE}}Service;
+
+    @GetMapping("/{{API_FRAGMENT}}")
+    public ResponseEntity<?> index() {
+        try {
+            List<{{ENTITY_CLASS_NAME}}> {{ENTITY_INSTANCE_PLURAL}} = {{ENTITY_INSTANCE}}Service.findAll();
+            List<{{RESPONSE_CLASS}}> {{RESPONSE_CLASS | instance}} = CommonUtil.mapModels({{ENTITY_INSTANCE_PLURAL}}, {{RESPONSE_CLASS}}.class);
+            return ResponseBuilder.ok({{RESPONSE_CLASS | instance}});
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseBuilder.internalServerError(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{{API_FRAGMENT}}/{id}")
+    public ResponseEntity<?> show(@PathVariable String id) {
+        try {
+            {{ENTITY_CLASS_NAME}} {{ENTITY_INSTANCE}} = {{ENTITY_INSTANCE}}Service.findById(id);
+            {{RESPONSE_CLASS}} {{RESPONSE_CLASS | instance}} = CommonUtil.mapModel({{ENTITY_INSTANCE}}, {{RESPONSE_CLASS}}.class);
+            return ResponseBuilder.ok({{RESPONSE_CLASS | instance}});
+        } catch ({{ENTITY_CLASS_NAME}}NotFoundException e) {
+            e.printStackTrace();
+            return ResponseBuilder.notFound("{{ENTITY_CLASS_NAME}} not found.");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseBuilder.internalServerError(e.getMessage());
+        }
+    }
+
+    @PostMapping("/{{API_FRAGMENT}}")
+    public ResponseEntity<?> save(@Validated(CreateValidation.class) @RequestBody {{REQUEST_CLASS}} {{REQUEST_CLASS | instance}}) {
+        try {
+            {{ENTITY_CLASS_NAME}} {{ENTITY_INSTANCE}} = {{ENTITY_INSTANCE}}Service.create({{REQUEST_CLASS | instance}});
+            {{RESPONSE_CLASS}} {{RESPONSE_CLASS | instance}} = CommonUtil.mapModel({{ENTITY_INSTANCE}}, {{RESPONSE_CLASS}}.class);
+            return ResponseBuilder.ok({{RESPONSE_CLASS | instance}});
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseBuilder.internalServerError(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{{API_FRAGMENT}}/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        try {
+            {{ENTITY_INSTANCE}}Service.delete(id);
+            return ResponseBuilder.noContent();
+        } catch ({{ENTITY_CLASS_NAME}}NotFoundException e) {
+            e.printStackTrace();
+            return ResponseBuilder.notFound("{{ENTITY_CLASS_NAME}} not found.");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseBuilder.internalServerError(e.getMessage());
+        } catch (GenericViolationException e) {
+            return ResponseBuilder.badRequest(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{{API_FRAGMENT}}/{id}")
+    public ResponseEntity<?> update(@PathVariable String id, @Valid @RequestBody {{REQUEST_CLASS}} {{REQUEST_CLASS | instance}}) {
+        try {
+            {{ENTITY_CLASS_NAME}} {{ENTITY_INSTANCE}} = {{ENTITY_INSTANCE}}Service.update(id, collegeRequest);
+            {{RESPONSE_CLASS}} {{RESPONSE_CLASS | instance}} = CommonUtil.mapModel({{ENTITY_INSTANCE}}, {{RESPONSE_CLASS}}.class);
+            return ResponseBuilder.ok({{RESPONSE_CLASS | instance}});
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseBuilder.internalServerError(e.getMessage());
+        } catch ({{ENTITY_CLASS_NAME}}NotFoundException e) {
+            e.printStackTrace();
+            return ResponseBuilder.notFound("{{ENTITY_CLASS_NAME}} not found.");
+        }
+    }
+}
