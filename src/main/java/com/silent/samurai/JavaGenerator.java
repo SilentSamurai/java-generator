@@ -45,12 +45,12 @@ public class JavaGenerator {
 
     public void makeDtoWithValidation(Class<?> entity, String suffix, String tableName) throws IOException {
         this.needDB();
-        List<String> generatedClasses = DtoClassGenerator.make(entity, suffix, true, tableName, projectRoot);
+        List<String> generatedClasses = DtoClassGenerator.make(entity, suffix, true, tableName, this);
         logger.info(generatedClasses);
     }
 
     public void makeDto(Class<?> entity, String suffix) throws IOException {
-        List<String> generatedClasses = DtoClassGenerator.make(entity, suffix, false, null, projectRoot);
+        List<String> generatedClasses = DtoClassGenerator.make(entity, suffix, false, null, this);
         logger.info(generatedClasses);
     }
 

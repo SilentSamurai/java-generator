@@ -1,5 +1,6 @@
 package com.silent.samurai.generators;
 
+import com.silent.samurai.JavaGenerator;
 import com.silent.samurai.helper.ContextMap;
 import com.silent.samurai.helper.FieldContext;
 import com.silent.samurai.templates.JinjaTemplate;
@@ -22,10 +23,11 @@ public class DtoClassGenerator {
     static String templateValidation = "dto-validation.jt";
 
 
-    public static List<String> make(Class<?> entity, String suffix, Boolean applyValidation, String tableName, String projectRoot) throws IOException {
+    public static List<String> make(Class<?> entity, String suffix, Boolean applyValidation, String tableName, JavaGenerator generator) throws IOException {
         ContextMap context = ContextMap.newContext();
         String className = entity.getSimpleName() + WordUtils.capitalize(suffix);
-        String packageName = entity.getPackage().getName();
+        String basePackage = generator.getPackageName();
+        String packageName = basePackage + ".dtos";
 
         Set<Field> fields = FieldUtil.getFields(entity);
 
@@ -41,11 +43,11 @@ public class DtoClassGenerator {
 
         context.put("CLASS_NAME", className);
         context.put("FIELDS", fieldContexts);
-        context.put("PACKAGE", packageName);
+        context.put("BASE_PACKAGE", basePackage);
 
         String clazzData = JinjaTemplate.render(applyValidation ? templateValidation : template, context);
 
-        String absPath = ClassWriterUtils.writeClass(className, clazzData, projectRoot, packageName);
+        String absPath = ClassWriterUtils.writeClass(className, clazzData, generator.getProjectRoot(), packageName);
 
         return Collections.singletonList(absPath);
     }

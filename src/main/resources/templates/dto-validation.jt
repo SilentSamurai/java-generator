@@ -1,4 +1,4 @@
-package {{ PACKAGE }};
+package {{ BASE_PACKAGE }}.dtos;
 
 import javax.validation.constraints.NotNull;
 
